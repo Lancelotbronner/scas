@@ -1,10 +1,21 @@
 *.swp
 *.o
-*.6
 bin/
 *.rom
 test/
 build/
 .lvimrc
+tables/z80.c
 .ccls
 .ccls-cache
+
+# Build System Files
+CMakeCache.txt
+CMakeFiles
+cmake_install.cmake
+install_manifest.txt
+.swiftpm
+
+# Operating System Files
+.DS_Store
+__MACOSX
