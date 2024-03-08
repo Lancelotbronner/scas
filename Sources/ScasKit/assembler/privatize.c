@@ -1,8 +1,13 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <ScasKit/objects.h>
+#include <ScasKit/privatize.h>
+
 #include <ScasKit/instructions.h>
+#include <ScasKit/functions.h>
+#include <ScasKit/log.h>
+#include <ScasKit/md5.h>
+#include <ScasKit/runtime.h>
 
 void rename_symbol(area_t *a, const char *original, const char *new) {
 	for (unsigned int i = 0; i < a->late_immediates->length; ++i) {

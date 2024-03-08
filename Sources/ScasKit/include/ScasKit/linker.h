@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stdio.h>
+
 #include "list.h"
 
 typedef int (*format_writer)(FILE *f, uint8_t *data, int data_length);

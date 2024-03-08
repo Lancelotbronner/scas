@@ -1,5 +1,7 @@
 #pragma once
 
+#include <ScasKit/instructions.h>
+
 typedef struct {
     char key;
     char *value_provided;

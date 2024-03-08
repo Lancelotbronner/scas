@@ -1,7 +1,14 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <ScasKit/linker.h>
+
+#include <ScasKit/errors.h>
+#include <ScasKit/functions.h>
+#include <ScasKit/log.h>
+#include <ScasKit/merge.h>
 #include <ScasKit/objects.h>
+#include <ScasKit/runtime.h>
 
 /*
  * Notes on how this could be improved:

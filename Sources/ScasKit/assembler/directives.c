@@ -3,7 +3,14 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <ScasKit/directives.h>
+
 #include <ScasKit/assembler.h>
+#include <ScasKit/errors.h>
+#include <ScasKit/functions.h>
+#include <ScasKit/log.h>
+#include <ScasKit/stringop.h>
+#include <ScasKit/runtime.h>
 
 #define ERROR(ERROR_CODE, COLUMN, ...) add_error(state->errors, ERROR_CODE, \
 		*(int*)stack_peek(state->line_number_stack), \

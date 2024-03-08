@@ -1,9 +1,12 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <ScasKit/objects.h>
-
 #include <ScasKit/merge.h>
+
+#include <ScasKit/functions.h>
+#include <ScasKit/log.h>
+#include <ScasKit/objects.h>
+#include <ScasKit/stringop.h>
 
 area_t *get_area_by_name(object_t *object, char *name) {
 	for (unsigned int i = 0; i < object->areas->length; ++i) {

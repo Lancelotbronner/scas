@@ -1,5 +1,7 @@
 #pragma once
 
+#include <ScasKit/objects.h>
+
 typedef struct {
     area_t *area;
     char *name;

@@ -2,7 +2,16 @@
 #include <string.h>
 #include <ctype.h>
 
+#include <ScasKit/assembler.h>
+#include <ScasKit/directives.h>
+#include <ScasKit/errors.h>
 #include <ScasKit/expression.h>
+#include <ScasKit/log.h>
+#include <ScasKit/match.h>
+#include <ScasKit/privatize.h>
+#include <ScasKit/readline.h>
+#include <ScasKit/runtime.h>
+#include <ScasKit/stringop.h>
 
 #define ERROR(ERROR_CODE, COLUMN, ...) add_error(state->errors, ERROR_CODE, \
 		*(int*)stack_peek(state->line_number_stack), \
