@@ -14,8 +14,8 @@ typedef struct {
 
 typedef struct {
     instruction_t *instruction;
-    list_t/*operand_ref_t*/ *operands;
-    list_t/*immediate_ref_t*/ *immediate_values;
+    struct list/*operand_ref_t*/ *operands;
+    struct list/*immediate_ref_t*/ *immediate_values;
 } instruction_match_t;
 
 instruction_match_t *match_instruction(instruction_set_t *set, const char *str);

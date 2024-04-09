@@ -12,11 +12,11 @@
 
 /*
  * Notes on how this could be improved:
- * A sorted list_t would make a lot of these lookups faster
+ * A sorted struct list would make a lot of these lookups faster
  * A hashtable could also be used to handle dupes and have fast lookup
  */
 
-symbol_t *find_symbol(list_t *symbols, char *name) {
+symbol_t *find_symbol(list_t symbols, char *name) {
 	for (unsigned int i = 0; i < symbols->length; ++i) {
 		symbol_t *sym = symbols->items[i];
 		if (strcasecmp(sym->name, name) == 0) {
@@ -26,7 +26,7 @@ symbol_t *find_symbol(list_t *symbols, char *name) {
 	return NULL;
 }
 
-void resolve_immediate_values(list_t *symbols, area_t *area, list_t *errors) {
+void resolve_immediate_values(list_t symbols, area_t *area, list_t errors) {
 	scas_log(L_DEBUG, "Resolving immediate values for area '%s' at %08X", area->name, area->final_address);
 	scas_log_indent += 1;
 	for (unsigned int i = 0; i < area->late_immediates->length; ++i) {
@@ -124,7 +124,7 @@ void auto_relocate_area(area_t *area, area_t *runtime) {
 	}
 }
 
-void gather_symbols(list_t *symbols, area_t *area, linker_settings_t *settings) {
+void gather_symbols(list_t symbols, area_t *area, linker_settings_t *settings) {
 	for (unsigned int i = 0; i < area->symbols->length; ++i) {
 		symbol_t *sym = area->symbols->items[i];
 		if (find_symbol(symbols, sym->name)) {
@@ -136,15 +136,15 @@ void gather_symbols(list_t *symbols, area_t *area, linker_settings_t *settings) 
 	}
 }
 
-void move_origin(list_t *symbols) {
+void move_origin(list_t symbols) {
 	for (unsigned int i = 0; i < symbols->length; ++i) {
 		symbol_t *sym = symbols->items[i];
 		sym->value += scas_runtime.options.origin;
 	}
 }
 
-void link_objects(FILE *output, list_t *objects, linker_settings_t *settings) {
-	list_t *symbols = create_list(); // TODO: Use a hash table
+void link_objects(FILE *output, list_t objects, linker_settings_t *settings) {
+	list_t symbols = create_list(); // TODO: Use a hash table
 
 	/* Create a new area for relocatable references */
 	area_t *runtime = NULL;

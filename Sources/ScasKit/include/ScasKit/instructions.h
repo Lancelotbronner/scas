@@ -12,16 +12,16 @@ enum {
 
 typedef struct {
     char *arch;
-    list_t *instructions;
-    list_t *operand_groups;
+    list_t instructions;
+    list_t operand_groups;
 } instruction_set_t;
 
 typedef struct {
     char *match;
     uint64_t value;
     size_t width;
-    list_t *immediate;
-    list_t *operands;
+    list_t immediate;
+    list_t operands;
 } instruction_t;
 
 typedef struct {
@@ -33,7 +33,7 @@ typedef struct {
 
 typedef struct {
     char *name;
-    list_t *operands;
+    list_t operands;
 } operand_group_t;
 
 typedef struct {

@@ -49,15 +49,15 @@ typedef struct {
 
 typedef struct {
     char *file_name;
-    list_t *entries;
+    list_t entries;
 } source_map_t;
 
 typedef struct {
     char *name;
-    list_t *late_immediates;
-    list_t *symbols;
-    list_t *source_map;
-    list_t *metadata;
+    list_t late_immediates;
+    list_t symbols;
+    list_t source_map;
+    list_t metadata;
     uint8_t *data;
     uint64_t data_length;
     uint64_t data_capacity;
@@ -66,11 +66,11 @@ typedef struct {
 } area_t;
 
 typedef struct {
-    list_t *areas;
+    list_t areas;
     /* Only used for assembly */
-    list_t *exports;
-    list_t *imports;
-    list_t *unresolved;
+    list_t exports;
+    list_t imports;
+    list_t unresolved;
     bool merged;
 } object_t;
 

@@ -18,10 +18,8 @@ void free_bucket(hashtable_entry_t *bucket) {
 }
 
 void free_hashtable(hashtable_t *table) {
-	int i;
-	for (i = 0; i < table->bucket_count; ++i) {
+	for (int i = 0; i < table->bucket_count; ++i)
 		free_bucket(table->buckets[i]);
-	}
 	free(table);
 }
 

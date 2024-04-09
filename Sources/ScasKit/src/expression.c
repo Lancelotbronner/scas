@@ -108,10 +108,10 @@ tokenized_expression_t *fread_tokenized_expression(FILE *f) {
 	return expression;
 }
 
-uint64_t evaluate_expression(tokenized_expression_t *expression, list_t
+uint64_t evaluate_expression(tokenized_expression_t *expression, struct list
 		*symbols, int *error, char **symbol) {
-	stack_type *stack = create_stack();
-	list_t *to_free = create_list();
+	stack_s *stack = create_stack();
+	list_t to_free = create_list();
 	expression_token_t *resolved;
 	operator_t op;
 	uint64_t res = 0;
@@ -300,7 +300,7 @@ tokenized_expression_t *parse_expression(const char *str) {
 	tokenized_expression_t *list = malloc(sizeof(tokenized_expression_t));
 	list->tokens = create_list();
 	list->symbols = create_list();
-	stack_type *stack = create_stack();
+	stack_s *stack = create_stack();
 
 	const char *current = str;
 	while (1) {

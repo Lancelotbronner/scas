@@ -47,8 +47,8 @@ char *strip_comments(char *str) {
 	return str;
 }
 
-list_t *split_string(const char *str, const char *delims) {
-	list_t *res = create_list();
+list_t split_string(const char *str, const char *delims) {
+	list_t res = create_list();
 	for (size_t i = 0, j = 0; i < strlen(str) + 1; ++i) {
 		if (strchr(delims, str[i]) || i == strlen(str)) {
 			if (i - j == 0) {
@@ -68,7 +68,7 @@ list_t *split_string(const char *str, const char *delims) {
 	return res;
 }
 
-void free_flat_list(list_t *list) {
+void free_flat_list(list_t list) {
 	for (unsigned int i = 0; i < list->length; ++i) {
 		free(list->items[i]);
 	}

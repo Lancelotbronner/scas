@@ -7,35 +7,35 @@
 #include "objects.h"
 
 typedef struct {
-	list_t *include_path;
-	list_t *errors;
-	list_t *warnings;
-	list_t *macros;
+	list_t include_path;
+	list_t errors;
+	list_t warnings;
+	list_t macros;
 } assembler_settings_t;
 
 typedef struct {
 	char *name;
-	list_t/*char **/ *macro_lines;
-	list_t/*char **/ *parameters;
+	list_t/* char * */ macro_lines;
+	list_t/* char * */ parameters;
 } macro_t;
 
 struct assembler_state {
 	object_t *object;
 	area_t *current_area;
-	stack_type *source_map_stack;
-	stack_type *file_stack;
-	stack_type *file_name_stack;
-	stack_type *line_number_stack;
-	list_t *errors;
-	list_t *warnings;
-	list_t *extra_lines;
+	stack_s *source_map_stack;
+	stack_s *file_stack;
+	stack_s *file_name_stack;
+	stack_s *line_number_stack;
+	list_t errors;
+	list_t warnings;
+	list_t extra_lines;
 	bool expanding_macro;
 	char *line;
 	int column;
 	uint8_t *instruction_buffer;
-	stack_type *if_stack;
-	list_t *equates;
-	list_t *macros;
+	stack_s *if_stack;
+	list_t equates;
+	list_t macros;
 	macro_t *current_macro;
 	int nolist;
 	uint64_t PC;

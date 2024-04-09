@@ -2,7 +2,7 @@
 #include <ScasKit/list.h>
 
 struct {
-	list_t *input_files;
+	list_t input_files;
 	char *area;
 	int dump_code;
 	int dump_private_symbols;
@@ -22,8 +22,7 @@ void init_runtime() {
 }
 
 bool parse_arguments(int argc, char **argv) {
-	int i;
-	for (i = 1; i < argc; ++i) {
+	for (int i = 1; i < argc; ++i) {
 		if (argv[i][0] == '-' && argv[i][1] != '\0') {
 			if (strcmp("-i", argv[i]) == 0 || strcmp("--input", argv[i]) == 0) {
 				list_add(runtime.input_files, argv[++i]);

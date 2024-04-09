@@ -75,7 +75,7 @@ scas input1.asm input2.asm input3.asm output.bin::
 	The default behavior with several files is to arrange their output in order.
 
 scas -c screen.asm screen.o::
-	Assembles input1.asm and produces an unlinked object file.
+	Assembles screen.asm and produces an unlinked object file.
 
 scas -o game.bin screen.o keyboard.o main.o::
 	Links three object files together and produces game.bin as machine code.

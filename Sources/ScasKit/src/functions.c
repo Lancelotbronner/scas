@@ -27,7 +27,7 @@ symbol_t *get_symbol_by_name(area_t *area, const char *name) {
 	return NULL;
 }
 
-function_metadata_t *get_function_for_address(area_t *area, list_t *functions, uint32_t address) {
+function_metadata_t *get_function_for_address(area_t *area, list_t functions, uint32_t address) {
 	unsigned int i;
 	for (i = 0; i < functions->length; ++i) {
 		function_metadata_t *func = functions->items[i];
@@ -38,7 +38,7 @@ function_metadata_t *get_function_for_address(area_t *area, list_t *functions, u
 	return NULL;
 }
 
-function_metadata_t *get_function_by_name(list_t *functions, const char *name) {
+function_metadata_t *get_function_by_name(list_t functions, const char *name) {
 	unsigned int i;
 	for (i = 0; i < functions->length; ++i) {
 		function_metadata_t *func = functions->items[i];
@@ -49,9 +49,9 @@ function_metadata_t *get_function_by_name(list_t *functions, const char *name) {
 	return NULL;
 }
 
-void mark_dependencies_precious(function_metadata_t *parent, list_t *functions, object_t *object);
+void mark_dependencies_precious(function_metadata_t *parent, list_t functions, object_t *object);
 
-void mark_precious(list_t *functions, late_immediate_t *imm, object_t *object, int recurse) {
+void mark_precious(list_t functions, late_immediate_t *imm, object_t *object, int recurse) {
 	for (unsigned int j = 0; j < imm->expression->tokens->length; ++j) {
 		expression_token_t *tok = imm->expression->tokens->items[j];
 		if (tok->type == SYMBOL) {
@@ -69,7 +69,7 @@ void mark_precious(list_t *functions, late_immediate_t *imm, object_t *object, i
 	}
 }
 
-void mark_dependencies_precious(function_metadata_t *parent, list_t *functions, object_t *object) {
+void mark_dependencies_precious(function_metadata_t *parent, list_t functions, object_t *object) {
 	scas_log(L_DEBUG, "Marking dependencies of %s as precious", parent->name);
 	for (unsigned int i = 0; i < object->areas->length; ++i) {
 		area_t *area = object->areas->items[i];
@@ -90,13 +90,13 @@ size_t compare_functions(const void *a, const void *b) {
 
 void remove_unused_functions(object_t *object) {
 	scas_log(L_DEBUG, "Optimizing out unused functions for object");
-	list_t *functions = create_list();
+	list_t functions = create_list();
 	unsigned int i;
 	for (i = 0; i < object->areas->length; ++i) {
 		area_t *area = object->areas->items[i];
 		metadata_t *meta = get_area_metadata(area, "scas.functions");
 		if (meta) {
-			list_t *decoded = decode_function_metadata(area, meta->value);
+			list_t decoded = decode_function_metadata(area, meta->value);
 			list_cat(functions, decoded);
 			list_free(decoded);
 		}
@@ -198,9 +198,9 @@ void remove_unused_functions(object_t *object) {
 	list_free(functions);
 }
 
-list_t *decode_function_metadata(area_t *area, char *value) {
+list_t decode_function_metadata(area_t *area, char *value) {
 	uint32_t total;
-	list_t *result = create_list();
+	list_t result = create_list();
 	total = *(uint32_t *)value;
 	value += sizeof(uint32_t);
 
@@ -237,7 +237,7 @@ list_t *decode_function_metadata(area_t *area, char *value) {
 	return result;
 }
 
-char *encode_function_metadata(list_t *metadata, uint64_t *value_length) {
+char *encode_function_metadata(list_t metadata, uint64_t *value_length) {
 	uint32_t len = sizeof(uint32_t);
 	unsigned int i;
 	for (i = 0; i < metadata->length; ++i) {

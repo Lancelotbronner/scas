@@ -40,7 +40,7 @@ const char *get_warning_string(warning_t *warning) {
 	}
 }
 
-void add_error(list_t *errors, int code, size_t line_number, const char *line,
+void add_error(list_t errors, int code, size_t line_number, const char *line,
 		int column, const char *file_name, ...) {
 	error_t *error = malloc(sizeof(error_t));
 	error->code = code;
@@ -68,7 +68,7 @@ void add_error(list_t *errors, int code, size_t line_number, const char *line,
 			line_number, column);
 }
 
-void add_warning(list_t *warnings, int code, size_t line_number,
+void add_warning(list_t warnings, int code, size_t line_number,
 		const char *line, int column, const char *file_name, ...) {
 	warning_t *warning = malloc(sizeof(warning_t));
 	warning->code = code;
@@ -97,7 +97,7 @@ void add_warning(list_t *warnings, int code, size_t line_number,
 }
 
 /* Locates the address in the source maps provided to get the file name and line number */
-void add_error_from_map(list_t *errors, int code, list_t *maps, uint64_t address, ...) {
+void add_error_from_map(list_t errors, int code, list_t maps, uint64_t address, ...) {
 	source_map_t *map;
 	source_map_entry_t *entry;
 	bool found = false;

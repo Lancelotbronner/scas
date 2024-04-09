@@ -179,7 +179,7 @@ bool parse_flag(const char *flag) {
 			scas_log(L_ERROR, "Unable to parse -forigin=%s", value);
 			return false;
 		}
-		list_t *s = create_list();
+		list_t s = create_list();
 		int _;
 		char *__;
 		uint64_t res = evaluate_expression(e, s, &_, &__);
@@ -199,8 +199,7 @@ bool parse_flag(const char *flag) {
 
 
 void parse_arguments(int argc, char **argv) {
-	int i;
-	for (i = 1; i < argc; ++i) {
+	for (int i = 1; i < argc; ++i) {
 		if (argv[i][0] == '-' && argv[i][1] != '\0') {
 			if (strcmp("-o", argv[i]) == 0 || strcmp("--output", argv[i]) == 0) {
 				runtime_open(argv[++i]);
@@ -292,8 +291,8 @@ void parse_arguments(int argc, char **argv) {
 	}
 }
 
-list_t *split_include_path() {
-	list_t *list = create_list();
+list_t split_include_path() {
+	list_t list = create_list();
 	int i, j;
 	for (i = 0, j = 0; scas_runtime.include_path[i]; ++i) {
 		if (scas_runtime.include_path[i] == ':' || scas_runtime.include_path[i] == ';') {
@@ -337,7 +336,7 @@ assemble_input(char *name, FILE *f, assembler_settings_t settings)
 }
 
 static void
-link(list_t *objects, list_t *errors, list_t *warnings)
+link(list_t objects, list_t errors, list_t warnings)
 {
 	scas_log(L_INFO, "Passing objects to linker");
 	linker_settings_t settings = {
@@ -351,7 +350,7 @@ link(list_t *objects, list_t *errors, list_t *warnings)
 }
 
 static int
-merge(list_t *objects)
+merge(list_t objects)
 {
 	int ret;
 	object_t *merged;
@@ -368,7 +367,7 @@ merge(list_t *objects)
 }
 
 static void
-handle_errors(list_t *errors, list_t *warnings)
+handle_errors(list_t errors, list_t warnings)
 {
 	for (unsigned int i = 0; i < errors->length; ++i) {
 		error_t *error = errors->items[i];
@@ -430,11 +429,11 @@ int main(int argc, char **argv) {
 	}
 	scas_log(L_INFO, "Loaded instruction set: %s", instruction_set->arch);
 	scas_runtime.set = instruction_set;
-	list_t *include_path = split_include_path();
-	list_t *errors = create_list();
-	list_t *warnings = create_list();
+	list_t include_path = split_include_path();
+	list_t errors = create_list();
+	list_t warnings = create_list();
 
-	list_t *objects = create_list();
+	list_t objects = create_list();
 	assembler_settings_t settings = {
 		.include_path = include_path,
 		.errors = errors,

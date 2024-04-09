@@ -24,7 +24,7 @@ void rename_symbol(area_t *a, const char *original, const char *new) {
 	}
 	metadata_t *meta = get_area_metadata(a, "scas.functions");
 	if (meta != NULL) {
-		list_t *functions = decode_function_metadata(a, meta->value);
+		list_t functions = decode_function_metadata(a, meta->value);
 		for (unsigned int i = 0; i < functions->length; ++i) {
 			function_metadata_t *func = functions->items[i];
 			if (strcasecmp(func->name, original) == 0) {
@@ -46,7 +46,7 @@ void rename_symbol(area_t *a, const char *original, const char *new) {
 	}
 }
 
-int contains_string(list_t *l, const char *s) {
+int contains_string(list_t l, const char *s) {
 	for (unsigned int i = 0; i < l->length; ++i) {
 		if (strcasecmp(l->items[i], s) == 0) {
 			return 1;
@@ -55,7 +55,7 @@ int contains_string(list_t *l, const char *s) {
 	return 0;
 }
 
-void privatize_area(object_t *o, area_t *a, list_t *exports) {
+void privatize_area(object_t *o, area_t *a, list_t exports) {
 	MD5_CTX ctx;
 	unsigned char raw_checksum[16];
 	char checksum[33];
@@ -65,9 +65,8 @@ void privatize_area(object_t *o, area_t *a, list_t *exports) {
 	MD5_Final(raw_checksum, &ctx);
 
 	unsigned int i;
-	for (i = 0; i < 16; ++i) {
+	for (i = 0; i < 16; ++i)
 		sprintf(checksum + (i * 2), "%02x", raw_checksum[i]);
-	}
 
 	scas_log(L_DEBUG, "Privatizing area %s with checksum %s", a->name, checksum);
 

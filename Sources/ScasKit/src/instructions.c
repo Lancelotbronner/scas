@@ -29,9 +29,8 @@ uint64_t bitreverse(uint64_t n) {
 operand_group_t *find_operand_group(instruction_set_t *set, const char *name) {
 	for (unsigned int i = 0; i < set->operand_groups->length; ++i) {
 		operand_group_t *g = set->operand_groups->items[i];
-		if (strcmp(g->name, name) == 0) {
+		if (strcmp(g->name, name) == 0)
 			return g;
-		}
 	}
 	return NULL;
 }
@@ -39,9 +38,8 @@ operand_group_t *find_operand_group(instruction_set_t *set, const char *name) {
 operand_t *find_operand(operand_group_t *group, const char *match) {
 	for (unsigned int i = 0; i < group->operands->length; ++i) {
 		operand_t *o = group->operands->items[i];
-		if (strcasecmp(o->match, match) == 0) {
+		if (strcasecmp(o->match, match) == 0)
 			return o;
-		}
 	}
 	return NULL;
 }
@@ -49,9 +47,8 @@ operand_t *find_operand(operand_group_t *group, const char *match) {
 instruction_operand_t *find_instruction_operand(instruction_t *inst, char key) {
 	for (unsigned int i = 0; i < inst->operands->length; ++i) {
 		instruction_operand_t *op = inst->operands->items[i];
-		if (op->key == key) {
+		if (op->key == key)
 			return op;
-		}
 	}
 	return NULL;
 }
@@ -59,9 +56,8 @@ instruction_operand_t *find_instruction_operand(instruction_t *inst, char key) {
 immediate_t *find_instruction_immediate(instruction_t *inst, char key) {
 	for (unsigned int i = 0; i < inst->immediate->length; ++i) {
 		immediate_t *imm = inst->immediate->items[i];
-		if (imm->ref == key) {
+		if (imm->ref == key)
 			return imm;
-		}
 	}
 	return NULL;
 }
@@ -84,7 +80,7 @@ operand_t *create_operand(const char *match, uint64_t val, size_t len) {
 }
 
 bool parse_operand_line(const char *line, instruction_set_t *set) {
-	list_t *parts = split_string(line, " \t");
+	list_t parts = split_string(line, " \t");
 	if (parts->length != 4) {
 		fprintf(stderr, "Invalid definition found in instruction set: %s\n", line);
 		free_flat_list(parts);
@@ -109,7 +105,7 @@ bool parse_operand_line(const char *line, instruction_set_t *set) {
 }
 
 bool parse_instruction_line(const char *line, instruction_set_t *set) {
-	list_t *parts = split_string(line, " \t");
+	list_t parts = split_string(line, " \t");
 	if (parts->length <= 2) {
 		fprintf(stderr, "Invalid definition found in instruction set: %s\n", line);
 		free_flat_list(parts);
@@ -130,9 +126,8 @@ bool parse_instruction_line(const char *line, instruction_set_t *set) {
 			size_t g_len = strchr(inst->match + i, '>') - (inst->match + i);
 			char *g = malloc(g_len + 1);
 			int j;
-			for (j = 0; inst->match[i] != '>'; ++j) {
+			for (j = 0; inst->match[i] != '>'; ++j)
 				g[j] = inst->match[i++];
-			}
 			g[j] = '\0';
 			instruction_operand_t *op = malloc(sizeof(instruction_operand_t));
 			op->key = key;
@@ -150,15 +145,13 @@ bool parse_instruction_line(const char *line, instruction_set_t *set) {
 				size_t g_len = strchr(inst->match + i, '>') - (inst->match + i);
 				char *g = malloc(g_len + 1);
 				int j;
-				for (j = 0; inst->match[i] != '>'; ++j) {
+				for (j = 0; inst->match[i] != '>'; ++j)
 					g[j] = inst->match[i++];
-				}
 				g[j] = '\0';
 				width = atoi(g);
 				free(g);
-			} else {
+			} else
 				width = 3;
-			}
 			immediate_t *imm = malloc(sizeof(immediate_t));
 			imm->ref = key;
 			imm->width = (int)width;

@@ -30,8 +30,8 @@ typedef struct {
 } expression_token_t;
 
 typedef struct {
-	list_t *tokens;
-	list_t *symbols;
+	list_t tokens;
+	list_t symbols;
 } tokenized_expression_t;
 
 typedef struct {
@@ -40,7 +40,7 @@ typedef struct {
 	int is_unary;
 	int precedence;
 	int right_assocative;
-	uint64_t (*function)(stack_type *, int *);
+	uint64_t (*function)(stack_s *, int *);
 } operator_t;
 
 // NOTE: when passing operators, pass them sorted by length, largest first.
@@ -49,7 +49,7 @@ tokenized_expression_t *parse_expression(const char *str);
 void free_expression(tokenized_expression_t *expression);
 void initialize_expressions();
 void print_tokenized_expression(FILE *f, tokenized_expression_t *expression);
-uint64_t evaluate_expression(tokenized_expression_t *expression, list_t
+uint64_t evaluate_expression(tokenized_expression_t *expression, struct list
         *symbols, int *error, char **symbol);
 void fwrite_tokens(FILE *f, tokenized_expression_t *expression);
 tokenized_expression_t *fread_tokenized_expression(FILE *f);

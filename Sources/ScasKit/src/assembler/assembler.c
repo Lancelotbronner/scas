@@ -105,7 +105,7 @@ int try_empty_line(struct assembler_state *state, char **line) {
 	return strlen(*line) == 0;
 }
 
-char *extract_macro_parameters(char *str, list_t *params) {
+char *extract_macro_parameters(char *str, list_t params) {
 	int i, j, _;
 	int in_character = 0, in_string = 0, nested = 0;
 	for (i = 0, j = 0; str[i]; ++i) {
@@ -193,7 +193,7 @@ int try_expand_macro(struct assembler_state *state, char **line) {
 			*(int *)stack_peek(state->line_number_stack),
 			match - *line);
 
-		list_t *userparams = create_list();
+		list_t userparams = create_list();
 		char *endmatch;
 		if (match[name_length] == '(') {
 			if (!(endmatch = extract_macro_parameters(match + name_length + 1, userparams))) {
@@ -220,7 +220,7 @@ int try_expand_macro(struct assembler_state *state, char **line) {
 			endmatch = match + name_length;
 		}
 
-		list_t *newlines = create_list();
+		list_t newlines = create_list();
 		for (unsigned int j = 0; j < macro->macro_lines->length; ++j) {
 			char *mline = macro->macro_lines->items[j];
 			scas_log(L_DEBUG, "Inserting line '%s'", mline);

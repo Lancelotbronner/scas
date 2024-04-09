@@ -392,7 +392,7 @@ int handle_define(struct assembler_state *state, char **argv, int argc) {
 		char *params = malloc(end - location + 1);
 		strncpy(params, location, end - location);
 		params[end - location] = 0;
-		list_t *parameters = split_string(params, ",");
+		list_t parameters = split_string(params, ",");
 
 		for (unsigned int i = 0; i < parameters->length; i++) {
 			char *parameter = parameters->items[i];
@@ -867,7 +867,7 @@ int handle_function(struct assembler_state *state, char **argv, int argc) {
 		meta->value_length = sizeof(uint32_t);
 		*(uint32_t *)meta->value = 0;
 	}
-	list_t *functions = decode_function_metadata(state->current_area, meta->value);
+	list_t functions = decode_function_metadata(state->current_area, meta->value);
 	function_metadata_t *new_function = malloc(sizeof(function_metadata_t));
 
 	new_function->name = malloc(strlen(argv[0]) + 1);

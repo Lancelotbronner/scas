@@ -24,9 +24,10 @@ struct runtime {
 	char *arch;
 	instruction_set_t *set;
 	int link;
-	list_t *macros;
+	list_t macros;
 	output_type_t output_type;
-	list_t *input_files, *input_names;
+	list_t input_files;
+	list_t input_names;
 	FILE *output_file;
 	char *output_extension;
 	char *listing_file;
